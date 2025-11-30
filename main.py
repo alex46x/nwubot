@@ -20,8 +20,10 @@ from telegram.ext import (
 # ---------------------------------------------------------------------------
 # 1. CONFIGURATION
 # ---------------------------------------------------------------------------
+import os
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 
-BOT_TOKEN = "8534911818:AAGtLGMxPiT1aa6ocj1lJJoRkyc-3yLznO0"  # ← এখানে তোমার বট টোকেন দাও
+# BOT_TOKEN = "8534911818:AAGtLGMxPiT1aa6ocj1lJJoRkyc-3yLznO0"  # ← এখানে তোমার বট টোকেন দাও
 # import os
 # BOT_TOKEN = os.getenv("BOT_TOKEN")
 
@@ -791,5 +793,6 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
 
