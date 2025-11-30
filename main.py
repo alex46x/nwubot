@@ -8,14 +8,14 @@ from telegram import (
     ReplyKeyboardMarkup,
     KeyboardButton,
 )
-from telegram.ext import (
-    ApplicationBuilder,
-    ContextTypes,
-    CommandHandler,
-    MessageHandler,
-    ConversationHandler,
-    filters,
-)
+# from telegram.ext import (
+#     ApplicationBuilder,
+#     ContextTypes,
+#     CommandHandler,
+#     MessageHandler,
+#     ConversationHandler,
+#     filters,
+# )
 
 # ---------------------------------------------------------------------------
 # 1. CONFIGURATION
@@ -677,8 +677,38 @@ async def text_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 # ---------------------------------------------------------------------------
 
 
-def main() -> None:
+# def main() -> None:
+#     init_db()
+
+def main():
     init_db()
+
+    app = ApplicationBuilder().token(BOT_TOKEN).build()
+    jq = app.job_queue
+
+    # Jobs
+    jq.run_repeating(class_reminder_job, interval=60, first=10)
+    jq.run_daily(
+        midnight_cleanup,
+        time=datetime.time(0, 0, tzinfo=BD_TZ),
+    )
+
+    # Handlers
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("cancel", cancel))
+
+    app.add_handler(
+        MessageHandler(filters.TEXT & ~filters.COMMAND, text_handler)
+    )
+
+    print("Bot is running...")
+    app.run_polling()
+
+
+
+
+
+    
 
     app = ApplicationBuilder().token(BOT_TOKEN).build()
     jq = app.job_queue
@@ -793,6 +823,7 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
 
 
