@@ -864,8 +864,9 @@ from telegram.ext import (
 # ---------------------------------------------------------------------------
 # 1. CONFIGURATION
 # ---------------------------------------------------------------------------
+BOT_TOKEN="8536104698:AAGaLuPkiTv3kxkLpi6lt3Xxv6GNNr-uvdo"
 
-BOT_TOKEN = os.getenv("BOT_TOKEN")
+# BOT_TOKEN = os.getenv("BOT_TOKEN")
 if not BOT_TOKEN:
     raise ValueError("❌ BOT_TOKEN environment variable is missing!")
 
@@ -1034,6 +1035,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
